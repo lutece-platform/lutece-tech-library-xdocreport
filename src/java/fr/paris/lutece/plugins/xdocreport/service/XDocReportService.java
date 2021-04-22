@@ -34,7 +34,7 @@
 package fr.paris.lutece.plugins.xdocreport.service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 
 import fr.opensagres.xdocreport.document.IXDocReport;
@@ -59,17 +59,17 @@ public class XDocReportService
     /**
      * Produce document
      * 
-     * @param fis
+     * @param inputStream
      * @param model
      * @return ByteArrayOutputStream
      */
-    public static ByteArrayOutputStream produceDocument( FileInputStream fis, Map<String, Object> model )
+    public static ByteArrayOutputStream produceDocument( InputStream inputStream, Map<String, Object> model )
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream( );
 
         try
         {
-            IXDocReport report = XDocReportRegistry.getRegistry( ).loadReport( fis, TemplateEngineKind.Freemarker );
+            IXDocReport report = XDocReportRegistry.getRegistry( ).loadReport( inputStream, TemplateEngineKind.Freemarker );
 
             IContext context = report.createContext( );
             context.putMap( model );
